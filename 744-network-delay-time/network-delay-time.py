@@ -5,7 +5,6 @@ class Solution:
         adj_List = [[] for _ in range(n+1)]
         for a,b,w in times:
             adj_List[a].append((b,w))
-        visited = [False]*(n+1)
         def dfs(node,val):
             print(node,val)
             if val>dist_tracker[node]:
