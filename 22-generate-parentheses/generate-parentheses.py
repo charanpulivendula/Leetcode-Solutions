@@ -12,7 +12,8 @@ class Solution:
       tempstring = string+"("
       backtrack(tempstring,res+1)
       tempstring = string + ")"
-      backtrack(tempstring,res-1)
+      if res>0:
+        backtrack(tempstring,res-1)
       return res
 
     backtrack("",0)
