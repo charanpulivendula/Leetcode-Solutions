@@ -7,6 +7,7 @@ class Solution:
         left = 0
         right = 0
         maxLength = 0
+
         # sliding window
         while(left<len(s) and right<len(s)):
             if s[right] not in hashset:
@@ -18,8 +19,7 @@ class Solution:
                     left+=1
             # tracking longest string
                 hashset.add(s[right])
-            if(len(hashset)>maxLength):
-                maxLength = len(hashset)
+            maxLength = max(maxLength, right-left+1)
 
         # increasing size
             right+=1
