@@ -10,15 +10,16 @@ class Solution:
 
         # sliding window
         while(left<len(s) and right<len(s)):
-            if s[right] not in hashset:
-                hashset.add(s[right])
-            else:
+            # if s[right] not in hashset:
+            #     hashset.add(s[right])
+            # else:
                 #pruning the window
-                while(s[right] in hashset):
-                    hashset.remove(s[left])
-                    left+=1
+            # if s[right] not in hashset:
+            while(s[right] in hashset):
+                hashset.remove(s[left])
+                left+=1
             # tracking longest string
-                hashset.add(s[right])
+            hashset.add(s[right])
             maxLength = max(maxLength, right-left+1)
 
         # increasing size
