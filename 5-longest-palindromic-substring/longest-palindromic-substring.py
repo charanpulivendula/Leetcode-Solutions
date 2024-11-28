@@ -1,26 +1,18 @@
-class Solution(object):
-  def longestPalindrome(self, s):
-      """
-      :type s: str
-      :rtype: str
-      """
-      if len(s) < 1:
-        return s
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        dp = [[False for _ in range(n)] for _ in range(n)]
+        longest = s[0:1]
+        for i in range(n):
+            dp[i][i] = True
+        for i in range(n-1):
+            dp[i][i+1] = s[i]==s[i+1]
 
-      dp = [[False for i in range(len(s))] for j in range(len(s))]
-
-      longest = ""
-
-      for i in range(len(s)):
-        dp[i][i] = True
-        longest = s[i]
-
-      for i in range(len(s)):
-        for j in range(i):
-          if s[i] == s[j]:
-            if i == j+1 or dp[j+1][i-1]:
-              dp[j][i] = True
-              if len(longest) < len(s[j:i+1]):
-                longest = s[j:i+1]
-
-      return longest
+        for j in range(n):
+            for i in range(j):
+                if j!=i+1:
+                    dp[i][j] = s[i]==s[j] and dp[i+1][j-1]
+                if dp[i][j]:
+                    if j-i+1 > len(longest):
+                        longest = s[i:j+1] 
+        return longest
