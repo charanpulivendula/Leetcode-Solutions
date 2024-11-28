@@ -1,15 +1,15 @@
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        i = 0
-        j = 0
-        memcache = {}
-        def maxSum(i,j,iter):
-            if (i,j) in memcache:
-                return memcache[(i,j)]
-            if iter>=len(triangle):
-                memcache[(i,j)] = 0
-                return memcache[(i,j)]
-            memcache[(i,j)] = triangle[i][j]+min(maxSum(i+1,j,iter+1),maxSum(i+1,j+1,iter+1))
-            return memcache[(i,j)]
-        return maxSum(0,0,0)
+        n = len(triangle)
+        dp = [[float("inf") for _ in range(n)] for _ in range(n)]
+        dp[0][0] = triangle[0][0]
+        for i in range(1,n):
+            dp[i][0] = triangle[i][0]+dp[i-1][0]
+            dp[i][i] = triangle[i][i]+dp[i-1][i-1]
+            
+        for i in range(1,n):
+            for j in range(1,i):
+                dp[i][j] = triangle[i][j]+min(dp[i-1][j-1],dp[i-1][j])
+        
+        return min(dp[n-1])
                 
