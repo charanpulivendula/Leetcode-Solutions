@@ -10,7 +10,9 @@ class Solution:
                 return
             digit = int(digits[i])
             for char in digit_map[digit]:
-                backtrack(i+1,s+char)
+                s+=char
+                backtrack(i+1,s)
+                s = s[:-1]
         
         backtrack(0,"")
         return res
