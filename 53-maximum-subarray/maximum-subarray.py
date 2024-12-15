@@ -1,11 +1,8 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return nums[0]
-        maxSum = -999999
-        localMax = -9999999
-        for i in range(len(nums)):
-            localMax = max(nums[i],localMax+nums[i])
-            if localMax > maxSum:
-                maxSum = localMax
-        return maxSum
+        agg = nums[0]
+        maxi = nums[0]
+        for i in range(1,len(nums)):
+            agg = max(agg+nums[i],nums[i])
+            maxi = max(agg,maxi)
+        return maxi
