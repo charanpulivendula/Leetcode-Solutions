@@ -1,25 +1,22 @@
 class Solution:
     def productExceptSelf(self, nums):
-        if len(nums) == 1:
-            return len(nums)
-
-        prefix = [1]*len(nums)
-        postfix = [1]*len(nums)
-        prefix[0] = nums[0]
-        postfix[-1] = nums[-1]
-        result = [1]*len(nums)
-
         n = len(nums)
-        for i in range(1,len(nums)):
-            prefix[i] = nums[i]*prefix[i-1]
-            postfix[n-i-1] = nums[n-i-1]*postfix[n-i]
-        
-        result[0] = postfix[1]
-        result[-1] = prefix[-2]
-        
-        for i in range(1,len(result)-1):
-            result[i] = prefix[i-1]*postfix[i+1]
-        return result
-            
+        lprod = [1,nums[0]]
+        laccum = nums[0]
+        rprod = [1 for _ in range(n+1)]
+        rprod[-2] = nums[-1]
+        raccum = nums[-1]
+        for i in range(1,n):
+            lprod.append(nums[i]*laccum)
+            laccum = nums[i]*laccum
 
+        for i in range(n-2,-1,-1):
+            rprod[i] = raccum*nums[i]
+            raccum*=nums[i]
+        res = []
+        # print(lprod)
+        # print(rprod)
+        for i in range(1,n+1):
+            res.append(lprod[i-1]*rprod[i])
         
+        return res
