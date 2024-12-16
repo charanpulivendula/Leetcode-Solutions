@@ -1,25 +1,29 @@
-from random import randint,choice
+from random import choice
+from collections import defaultdict
 class RandomizedSet:
-
     def __init__(self):
-        self.RandomSet = set()
+        self.hashmap = defaultdict(int)
 
     def insert(self, val: int) -> bool:
-        if val not in self.RandomSet:
-            self.RandomSet.add(val)
-            return True
-        else:
+        if val in self.hashmap:
             return False
+        self.hashmap[val] = val
+        return True
 
     def remove(self, val: int) -> bool:
-        if val in self.RandomSet:
-            self.RandomSet.remove(val)
+        if val in self.hashmap:
+            del self.hashmap[val]
             return True
-        else:
-            return False
+        return False
 
     def getRandom(self) -> int:
-        return choice(list(self.RandomSet))
+        val = self.hashmap[choice(list(self.hashmap.keys()))]
+        return val
+        # print(choice(self.hashmap.keys()))
+        # val = self.hashmap[choice(self.hashmap.keys())]
+        # # self.hashmap[val] = val
+        # return val
+        
 
 
 # Your RandomizedSet object will be instantiated and called as such:
