@@ -1,12 +1,19 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        s = s.rstrip()
-        s = s.lstrip()
-        words = s.split(" ")
-        print(words)
         res = ""
-        for word in words:
-            if word:
-                res = word+" "+res
+        s = s.lstrip()
+        s = s.rstrip()
+        s = " "+s
+        i = len(s)-1
+        tempstr = ''
+        while(i>=0):
+            if s[i]==" ":
+                res += tempstr[::-1]+" "
+                tempstr = ""
+                while(i>=0 and s[i]==" "):
+                    i-=1
+            tempstr+=s[i]
+            i-=1
+        
         return res.rstrip()
         
