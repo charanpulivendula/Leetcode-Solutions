@@ -7,10 +7,13 @@ class Solution:
             
             if s[i] not in valid:
                 i+=1
-            elif s[j] not in valid:
-                j-=1
+                continue
 
-            elif s[i].lower()!=s[j].lower():
+            if s[j] not in valid:
+                j-=1
+                continue
+
+            if s[i].lower()!=s[j].lower():
                 return False
             else:
                 i+=1
