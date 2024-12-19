@@ -5,18 +5,15 @@ class Solution:
         j = len(s)-1
         while(i<j):
             
-            if s[i] not in valid:
+            while i<len(s) and s[i] not in valid:
                 i+=1
-                continue
 
-            if s[j] not in valid:
+            while j>=0 and s[j] not in valid:
                 j-=1
-                continue
 
-            if s[i].lower()!=s[j].lower():
+            if i<len(s) and j>=0 and s[i].lower()!=s[j].lower():
                 return False
-            else:
-                i+=1
-                j-=1
+            i+=1
+            j-=1
         return True
         
