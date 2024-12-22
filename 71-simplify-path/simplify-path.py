@@ -18,13 +18,9 @@ class Solution:
             else:
                 temp_string+=char
         if temp_string:
-            print(temp_string)
             stack.append(temp_string)
         if stack and stack[-1]=="/":
             stack.pop()
-        # if not stack:
-        #     stack.append("/")
-        # if stack[0]!="/":
     
         return "/"+"".join(stack)
         
