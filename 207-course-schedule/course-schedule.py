@@ -1,33 +1,40 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         n = numCourses
-        neighbors = [[] for _ in range(n)]
-        visited = [False for _ in range(n)]
-        sources = [True for _ in range(n)]
+        adj = [set() for _ in range(n)]
+        visited = set()
+        outdegrees = [0 for _ in range(n)]
         res = []
-
+        queue = deque()
         for req in prerequisites:
-            neighbors[req[0]].append(req[1])
-            sources[req[1]]= False
+            adj[req[0]].add(req[1])
+            outdegrees[req[0]]+=1
+        for index,deg in enumerate(outdegrees):
+            if deg==0:
+                queue.append(index)
+                visited.add(index)
+        print(outdegrees)
+        while(queue):
+            node= queue.popleft()
+            for index in range(len(adj)):
+                if index not in visited and node in adj[index]:
+                    outdegrees[index]-=1
+                    if outdegrees[index]==0:
+                        queue.append(index)
+                        visited.add(index)
+        print(outdegrees)
         
-        def dfs(node,stack):
-            if visited[node]:
-                return False
-            stack.append(node)
-            visited[node] = True
-            for neighbor in neighbors[node]:
-                if visited[neighbor]:
-                    if neighbor in stack:
-                        return False
-                dfs(neighbor,stack)
-            stack.remove(node)
-            res.append(node)
-            return True
+        return sum(outdegrees) == 0
+
         
-        for i in range(len(sources)):
-            if sources[i]:
-                if not dfs(i,[]):
-                    return False
+        # def bfs(node):
+        #     queue = deque()
+
         
-        return len(res) == numCourses
+        # for i in range(len(sources)):
+        #     if sources[i]:
+        #         if not bfs(i,[]):
+        #             return False
+        
+        # return len(res) == numCourses
  
