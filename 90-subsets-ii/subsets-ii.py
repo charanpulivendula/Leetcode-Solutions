@@ -1,18 +1,19 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         resSet = []
+        nums.sort()
         def recursion(arr,i):
             if i == len(nums):
                 return
-            new = sorted(arr)
-            if new not in resSet:
-                resSet.append(new)
+            if arr not in resSet:
+                resSet.append(arr.copy())
+            
             for j in range(i+1,len(nums)):
-                temp = arr.copy()
-                temp.append(nums[j])
-                recursion(temp,j)
+                arr.append(nums[j])
+                recursion(arr,j)
+                arr.pop()
 
         recursion([],-1)
-        return list(sorted(resSet))
+        return resSet
 
         
