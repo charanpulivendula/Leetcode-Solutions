@@ -1,20 +1,19 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        listt = []
-        open = ['(','{','[']
-        mapp = {')':'(','}':'{',']':'['}
-        if s == '':
-            return True
-        for i in range(len(s)):
-            if s[i] in open:
-                listt.append(s[i])
-            else:
-                if listt:
-                    if listt.pop() != mapp[s[i]]:
-                        return False
+        bracket_map = {')':'(','}':'{',']':'['}
+        #stack to store opening brackets
+        stack = []
+        for char in s:
+            if char in bracket_map:
+                if stack and stack[-1] == bracket_map[char]:
+                    #removing the matching opening bracket
+                    stack.pop()
                 else:
                     return False
-        if len(listt) > 0:
-            return False
-        return True
+            else:
+                #push open bracket to stack
+                stack.append(char)
             
+        return not stack
+
+        
