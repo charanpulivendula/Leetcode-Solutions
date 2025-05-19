@@ -22,11 +22,11 @@ class Solution:
             if second:
                 temp.next = second
             return dummy.next
+        n = len(lists)
+        interval = 1
+        while(interval < n):
+            for i in range(0,n - interval,interval*2):
+                lists[i] = merge(lists[i],lists[i+interval])
+            interval*=2
 
-        while(len(lists)>1):
-            n = len(lists)
-            first = lists.pop()
-            second = lists.pop()
-            merged = merge(first,second)
-            lists.append(merged)
-        return lists[0] if len(lists)==1 else None
+        return lists[0] if n>0 else None
