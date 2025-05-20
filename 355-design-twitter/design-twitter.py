@@ -1,28 +1,33 @@
 from collections import defaultdict,deque
+from heapq import heappush,heappop
 class Twitter:
 
     def __init__(self):
+        self.counter = 0
         self.users = defaultdict(set)
-        self.tweetfeed = []
+        self.tweetfeed = defaultdict(deque)
         
 
     def postTweet(self, userId: int, tweetId: int) -> None:
-        self.tweetfeed.append((userId,tweetId))
         self.users[userId].add(userId)
+        self.tweetfeed[userId].appendleft((self.counter,tweetId))
+        self.counter+=1
         
-
     def getNewsFeed(self, userId: int) -> List[int]:
+        heap = []
         res = []
+        followees = self.users[userId]
         count = 0
-        for person,tweetId in reversed(self.tweetfeed):
-            if count >= 10:
-                return res
-            if person in self.users[userId]:
-                res.append(tweetId)
-                count+=1
-            
+        for followee in followees:
+            for count,tweetId in list(self.tweetfeed[followee])[:10]:
+                heappush(heap,(-count,tweetId))
+
+        feedcount = 0
+        heaplength = len(heap)
+        while(feedcount<min(10,heaplength)):
+            res.append(heappop(heap)[1])
+            feedcount+=1
         return res
-        
 
     def follow(self, followerId: int, followeeId: int) -> None:
         self.users[followerId].add(followeeId)
