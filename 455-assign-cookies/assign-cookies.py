@@ -10,10 +10,8 @@ class Solution:
         while(i<m and j<n):
             if g[i]<=s[j]:
                 i+=1
-                j+=1
                 count+=1
-            else:
-                j+=1
+            j+=1
         return count
 
             
