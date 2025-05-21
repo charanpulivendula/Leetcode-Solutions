@@ -6,6 +6,7 @@ class Solution:
             for j in range(i):
                 if nums[j]+j>=i:
                     dp[i] = min(dp[i],1+dp[j])
+                    # break
         return dp[len(dp)-1]
                     
     
