@@ -12,17 +12,15 @@ class Solution:
         if not root:
             return []
         s1 = []
-        s2 = []
         s1.append(root)
         res = []
         while(s1):
             curr = s1.pop()
-            s2.append(curr)
+            res.append(curr.val)
             if curr.left:
                 s1.append(curr.left)
             if curr.right:
                 s1.append(curr.right)
-        while(s2):
-            res.append(s2.pop().val)
-        return res
+
+        return res[::-1]
         
