@@ -9,11 +9,20 @@ class Solution:
         self.res=[]
 
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        def postorder(root):
-            if not root:
-                return
-            postorder(root.left)
-            postorder(root.right)
-            self.res.append(root.val)
-        postorder(root)
-        return self.res
+        if not root:
+            return []
+        s1 = []
+        s2 = []
+        s1.append(root)
+        res = []
+        while(s1):
+            curr = s1.pop()
+            s2.append(curr)
+            if curr.left:
+                s1.append(curr.left)
+            if curr.right:
+                s1.append(curr.right)
+        while(s2):
+            res.append(s2.pop().val)
+        return res
+        
