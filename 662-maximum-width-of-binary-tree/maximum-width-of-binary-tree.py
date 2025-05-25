@@ -16,7 +16,6 @@ class Solution:
             counter = len(q)
             for _ in range(counter):
                 node,val = q.popleft()
-                print(node.val,val)
                 mini = min(mini,val)
                 maxi = max(maxi,val)
                 if node.left:
