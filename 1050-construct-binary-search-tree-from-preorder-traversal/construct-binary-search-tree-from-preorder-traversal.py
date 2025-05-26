@@ -7,10 +7,22 @@
 from bisect import bisect
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+        itr = 0
+        n = len(preorder)
         if preorder==[]:
             return None
-        node = TreeNode(preorder[0])
-        index = bisect(preorder[1:], node.val)
-        node.left = self.bstFromPreorder(preorder[1:index+1])
-        node.right = self.bstFromPreorder(preorder[index+1:])
-        return node
+        def buildTree(lb,rb):
+            
+            nonlocal itr
+            if itr == n:
+                return None
+            val = preorder[itr]
+            if lb>val or rb<val:
+                return None
+            itr+=1
+            node = TreeNode(val)
+
+            node.left = buildTree(lb, val)
+            node.right = buildTree(val, rb)
+            return node
+        return buildTree(float('-inf'),float('inf'))
