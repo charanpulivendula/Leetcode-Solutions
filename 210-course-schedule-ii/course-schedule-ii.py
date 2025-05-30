@@ -15,7 +15,7 @@ class Solution:
         visited = set()
         while(heap):
             node = heappop(heap)
-            res.append(node)
+            res = [node]+res
             visited.add(node)
             for neighbor in indegree:
                 if neighbor not in visited and node in indegree[neighbor]:
@@ -24,7 +24,7 @@ class Solution:
                         heappush(heap,neighbor)
 
         if len(res)==numCourses:
-            return res[::-1]
+            return res
         else:
             return []
 
