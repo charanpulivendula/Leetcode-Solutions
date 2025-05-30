@@ -1,35 +1,37 @@
+from heapq import heappush,heappop
 from collections import defaultdict
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        dep = [[] for _ in range(numCourses)]
-        sources = [True for _ in range(numCourses)]
         res = []
+        heap = []
+        indegree = defaultdict(set)
         for a,b in prerequisites:
-            dep[a].append(b)
-            sources[b] = False
-        
-        visited = set()
-        def dfs(node,stack):
-            stack.append(node)
-            visited.add(node)
-            for neigbour in dep[node]:
-                if neigbour in visited:
-                    if neigbour in stack:
-                        return False
-                else:
-                    dfs(neigbour,stack)
-            stack.remove(node)
-            res.append(node)
-            return True
+            indegree[b].add(a)
+        print(indegree)
+        for node in range(numCourses):
+            if node not in indegree:
+                heappush(heap,node)
 
-        for source in range(len(sources)):
-            if sources[source]:
-                if not dfs(source,[]):
-                    return []
-        if len(res) == numCourses:
-            return res
+        visited = set()
+        while(heap):
+            node = heappop(heap)
+            res.append(node)
+            visited.add(node)
+            for neighbor in indegree:
+                if neighbor not in visited and node in indegree[neighbor]:
+                    indegree[neighbor].remove(node)
+                    if not indegree[neighbor]:
+                        heappush(heap,neighbor)
+
+        if len(res)==numCourses:
+            return res[::-1]
         else:
             return []
+
+
+
+
+        
         
 
 
